@@ -37,4 +37,9 @@ public final class GlobalConstants {
 	public static final char THREAT_BOMB = '*';
 	public static final char THREAT_NO_BOMB = '%';
 	public static final char THREAT_CLEAR = ' ';
+	
+	/* Scanner */
+	public static final char LEFT_PARENTHESIS = '(';
+	public static final char RIGHT_PARENTHESIS = ')';
+	public static final char COMMA = ',';
 }

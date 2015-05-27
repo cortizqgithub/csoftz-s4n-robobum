@@ -13,6 +13,10 @@
  -----------------------------------------------------------------------------*/
 package com.csoftz.s4n.robobum;
 
+import java.util.List;
+
+import com.csoftz.s4n.robobum.domain.FieldTheatLocation;
+
 /**
  * Class to define what a robot is exploring
  * 
@@ -21,10 +25,27 @@ package com.csoftz.s4n.robobum;
  * @version 1.1, May.27/2015
  */
 public class Robot {
+	private List<FieldTheatLocation> threatLocs;
+	private List<String> mvts;
+	private int maxXAxis; 
+	private int maxYAxis;
 
-	
-	public Robot() {
-		// TODO Auto-generated constructor stub
+	/**
+	 * Constructor with params
+	 * @param threatLocs A list of field locations.
+	 * @param mvts
+	 */
+	public Robot(List<FieldTheatLocation> threatLocs, List<String> mvts) {
+		this.threatLocs = threatLocs;
+		this.mvts = mvts;
+		this.maxXAxis = 0;
+		this.maxYAxis = 0;
 	}
-
+	
+	/**
+	 * Analyze all mvts to locate bombs.
+	 */
+	public void explore() {
+		
+	}
 }

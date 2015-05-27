@@ -3,6 +3,7 @@
 V1.0.0.10-May.27/2015
 
 #RoboBum!
+NOTE: Original instructions are in Spanish.
 
 El Ejercito Nacional de Colombia ha desarrollado un programa para la
 detección de minas antipersona. Dentro del programa, usted ha sido

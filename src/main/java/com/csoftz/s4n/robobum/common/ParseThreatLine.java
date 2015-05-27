@@ -1,6 +1,7 @@
 /*----------------------------------------------------------------------------*/
-/* Source File:   LOADTEXTLINE.JAVA                                           */
-/* Description:   Helper Class to load string lines from a given file.        */
+/* Source File:   PARSETHREATLINE.JAVA                                        */
+/* Description:   Helper class to only parse threat lines and map to          */
+/*                ParseThreatLine Object.                                     */
 /* Author:        Carlos Adolfo Ortiz Quirós (COQ)                            */
 /* Date:          May.27/2015                                                 */
 /* Last Modified: May.27/2015                                                 */
@@ -13,30 +14,25 @@
  -----------------------------------------------------------------------------*/
 package com.csoftz.s4n.robobum.common;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
+import com.csoftz.s4n.robobum.domain.FieldTheatLocation;
 
 /**
- * Helper Class to load string lines from a given file.
+ * Helper class to only parse threat lines and map to ParseThreatLine Object.
  * 
  * @since 1.8(JDK), May.27/2015
  * @author Carlos Adolfo Ortiz Quirós (COQ)
  * @version 1.1, May.27/2015
  */
-public class LoadTextLine {
-	final static Charset ENCODING = StandardCharsets.UTF_8;
-
+public class ParseThreatLine {
 	/**
-	 * Load all the contents in a filename and returns in a string list for further processing.
-	 * @return List of lines as string.
+	 * Scans line to look for elements in the form '(1,2)*'
+	 * 
+	 * @param line
+	 *            Input to scan
+	 * @return An object representing the coordinates and signal found.
 	 */
-	public List<String> readAll(String fileName)  throws IOException {		
-		Path path = Paths.get(fileName);
-		return Files.readAllLines(path, ENCODING);
+	public FieldTheatLocation parseLine(String line) {
+		FieldTheatLocation data = new FieldTheatLocation();
+		return data;
 	}
 }
