@@ -41,9 +41,7 @@ public class RobotBumApp {
 		System.out.println("RoboBum, V1.0.0.10-Mar.27/2015");
 		System.out.println("Movement file: " + args[0]);
 		System.out.println("Threats file: " + args[1]);
-
-		RobotPosition rp = new RobotPosition(0, 0, GlobalConstants.NORTH_POS);
-		System.out.println(rp);
+		
 		LoadTextLine ltl = new LoadTextLine();
 		List<String> mvtLines = ltl.readAll(args[0]);
 		List<String> threatLines = ltl.readAll(args[1]);

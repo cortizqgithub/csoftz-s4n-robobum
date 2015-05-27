@@ -42,4 +42,5 @@ public final class GlobalConstants {
 	public static final char LEFT_PARENTHESIS = '(';
 	public static final char RIGHT_PARENTHESIS = ')';
 	public static final char COMMA = ',';
+	public static final char SPACE = ' ';
 }

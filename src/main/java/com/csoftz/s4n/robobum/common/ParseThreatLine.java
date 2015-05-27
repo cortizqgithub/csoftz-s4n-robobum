@@ -14,6 +14,7 @@
  -----------------------------------------------------------------------------*/
 package com.csoftz.s4n.robobum.common;
 
+import com.csoftz.s4n.robobum.consts.GlobalConstants;
 import com.csoftz.s4n.robobum.domain.FieldTheatLocation;
 
 /**
@@ -33,6 +34,27 @@ public class ParseThreatLine {
 	 */
 	public FieldTheatLocation parseLine(String line) {
 		FieldTheatLocation data = new FieldTheatLocation();
+		boolean start = false;
+		String tempStr = "";
+		for(int i = 0; i < line.length();) {
+			char ch = line.charAt(i);
+			if (ch == GlobalConstants.SPACE) {
+				i++;
+				continue;
+			}
+			if (ch == GlobalConstants.LEFT_PARENTHESIS) {
+				start = true;
+			}
+			if (ch == GlobalConstants.COMMA) {
+				start = false;
+				data.setX(Integer.parseInt(tempStr));
+				tempStr = "";
+			}
+			i++;
+			if (start) {
+				tempStr += ch; 
+			}			
+		}
 		return data;
 	}
 }
