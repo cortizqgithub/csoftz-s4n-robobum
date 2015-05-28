@@ -29,7 +29,7 @@ public final class GlobalConstants {
 	public static final char WEST_POS = 'W';
 
 	/* Robot Commands */
-	public static final char ROBOT_COMMAND_MOVE_lEFT = 'I';
+	public static final char ROBOT_COMMAND_MOVE_LEFT = 'I';
 	public static final char ROBOT_COMMAND_MOVE_RIGHT = 'D';
 	public static final char ROBOT_COMMAND_MOVE_FORWARD = 'A';
 

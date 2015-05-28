@@ -35,25 +35,41 @@ public class ParseThreatLine {
 	public FieldTheatLocation parseLine(String line) {
 		FieldTheatLocation data = new FieldTheatLocation();
 		boolean start = false;
+		boolean getKind = false;
 		String tempStr = "";
 		for(int i = 0; i < line.length();) {
 			char ch = line.charAt(i);
+			if (getKind) {
+				data.setKind(ch);
+				i++;
+				continue;
+			}
 			if (ch == GlobalConstants.SPACE) {
 				i++;
 				continue;
 			}
 			if (ch == GlobalConstants.LEFT_PARENTHESIS) {
 				start = true;
+				i++;
+				continue;
+			}
+			if (ch == GlobalConstants.RIGHT_PARENTHESIS) {
+				start = false;
+				data.setY(Integer.parseInt(tempStr));
+				getKind = true;
+				i++;
+				continue;
 			}
 			if (ch == GlobalConstants.COMMA) {
-				start = false;
 				data.setX(Integer.parseInt(tempStr));
-				tempStr = "";
+				tempStr="";
+				i++;
+				continue;
 			}
-			i++;
 			if (start) {
 				tempStr += ch; 
-			}			
+			}
+			i++;
 		}
 		return data;
 	}

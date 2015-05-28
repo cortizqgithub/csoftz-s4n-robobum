@@ -18,9 +18,7 @@ import java.util.List;
 
 import com.csoftz.s4n.robobum.common.LoadTextLine;
 import com.csoftz.s4n.robobum.common.ParseThreatLine;
-import com.csoftz.s4n.robobum.consts.GlobalConstants;
 import com.csoftz.s4n.robobum.domain.FieldTheatLocation;
-import com.csoftz.s4n.robobum.domain.RobotPosition;
 
 /**
  * Main entry location for app.
@@ -39,9 +37,16 @@ public class RobotBumApp {
 	 */
 	public static void main(String[] args) throws Exception {
 		System.out.println("RoboBum, V1.0.0.10-Mar.27/2015");
+
+		if (args.length < 2) {
+			System.out.println("No parameters supplied.");
+			System.out.println("First parameter is Movement file");
+			System.out.println("Second parameter is Threats file");
+			return;
+		}
 		System.out.println("Movement file: " + args[0]);
 		System.out.println("Threats file: " + args[1]);
-		
+
 		LoadTextLine ltl = new LoadTextLine();
 		List<String> mvtLines = ltl.readAll(args[0]);
 		List<String> threatLines = ltl.readAll(args[1]);
@@ -50,7 +55,43 @@ public class RobotBumApp {
 		threatLines.forEach((line) -> threatLocs.add(parseThreat
 				.parseLine(line)));
 
-		Robot robobum = new Robot(threatLocs, mvtLines);
-		robobum.explore();
+		if (mvtLines.size() > 0) {
+			List<Robot> robotList = new ArrayList<Robot>();
+			int maxX = 0;
+			int maxY = 0;
+			String[] items = mvtLines.get(0).split(" ");
+			maxX = Integer.parseInt(items[0]);
+			maxY = Integer.parseInt(items[1]);
+			int j = 0;
+			for (int i = 1; i < mvtLines.size();) {
+				String initialPos = mvtLines.get(i);
+				String commands = mvtLines.get(++i);
+				i++;
+				robotList.add(new Robot(threatLocs, "Robot" + (j++),
+						initialPos, commands, maxX, maxY));
+			}
+			robotList.forEach(r -> {
+				r.explore();
+				System.out.println("Results for ROBOT " + r.getName());
+				System.out.println("Showing Results------");
+				r.retrieveResultList().forEach(l -> System.out.println(l));
+				System.out.println("---------------------");
+				System.out.println("Trace----------------");
+				r.retrieveTrace().forEach(l -> System.out.println(l));
+				System.out.println("---------------------");
+				System.out.println("Robot Positions Log--");
+				r.retrieveRobotPositionsLog().forEach(
+						pos -> {
+							System.out.println("(" + pos.getX() + ","
+									+ pos.getY() + "," + pos.getCardinalPos()
+									+ ")");
+						});
+				System.out.println("---------------------");
+				System.out.println();
+			});
+		}
+
+		// Robot robobum = new Robot(threatLocs, mvtLines);
+		// robobum.explore();
 	}
 }
