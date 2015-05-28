@@ -86,14 +86,11 @@ public class Robot {
 				break;
 			case GlobalConstants.ROBOT_COMMAND_MOVE_FORWARD:
 				rpos = moveForward(rpos);
-				currXPos = rpos.getX();
-				currYPos = rpos.getY();
 				currCardinalPos = rpos.getCardinalPos();
 				break;
-			default:
-				break;
 			}
-			traceList.add("Robot position THIS" + "(" + rpos.getX() + ","
+			traceList.add("Executing command [" + ch + "]");
+			traceList.add("Affected Robot position " + "(" + rpos.getX() + ","
 					+ rpos.getY() + "," + rpos.getCardinalPos() + ")");
 			robotPosList.add(rpos);
 		}
@@ -107,39 +104,38 @@ public class Robot {
 	 * @param rpos
 	 *            new position.
 	 */
-	private RobotPosition moveForward(RobotPosition rpos) {
+	private RobotPosition moveForward(final RobotPosition rpos) {
 		RobotPosition newpos = new RobotPosition(rpos.getX(), rpos.getY(),
 				rpos.getCardinalPos());
 
-		switch (rpos.getCardinalPos()) {
+		switch (newpos.getCardinalPos()) {
 		case GlobalConstants.NORTH_POS:
-			int y = rpos.getY() + 1;
+			int y = newpos.getY() + 1;
 			if (y > maxYAxis) {
 				y = maxYAxis;
 			}
-			rpos.setY(y);
+			newpos.setY(y);
 			break;
 		case GlobalConstants.SOUTH_POS:
-			y = rpos.getY() + 1;
+			y = newpos.getY() - 1;
 			if (y < 0) {
 				y = 0;
 			}
-			rpos.setY(y);
+			newpos.setY(y);
+			break;
 		case GlobalConstants.EAST_POS:
-			int x = rpos.getX() + 1;
+			int x = newpos.getX() + 1;
 			if (x > maxXAxis) {
 				x = maxXAxis;
 			}
-			rpos.setX(x);
+			newpos.setX(x);
 			break;
 		case GlobalConstants.WEST_POS:
-			x = rpos.getX() - 1;
+			x = newpos.getX() - 1;
 			if (x < 0) {
 				x = 0;
 			}
-			rpos.setX(x);
-			break;
-		default:
+			newpos.setX(x);
 			break;
 		}
 		return newpos;
@@ -192,7 +188,9 @@ public class Robot {
 			break;
 		case GlobalConstants.SOUTH_POS:
 			rslt = GlobalConstants.EAST_POS;
-		default:
+			break;
+		case GlobalConstants.EAST_POS:
+			rslt = GlobalConstants.NORTH_POS;
 			break;
 		}
 		return rslt;
@@ -216,7 +214,9 @@ public class Robot {
 			break;
 		case GlobalConstants.SOUTH_POS:
 			rslt = GlobalConstants.WEST_POS;
-		default:
+			break;
+		case GlobalConstants.WEST_POS:
+			rslt = GlobalConstants.NORTH_POS;
 			break;
 		}
 		return rslt;

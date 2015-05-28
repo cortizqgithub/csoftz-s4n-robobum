@@ -36,7 +36,7 @@ public class RobotBumApp {
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
-		System.out.println("RoboBum, V1.0.0.10-Mar.27/2015");
+		System.out.println("RoboBum, V1.0.0.15-Mar.28/2015");
 
 		if (args.length < 2) {
 			System.out.println("No parameters supplied.");
