@@ -3,8 +3,8 @@
 /* Description:   Main entry location for app.                                */
 /* Author:        Carlos Adolfo Ortiz Quirós (COQ)                            */
 /* Date:          May.27/2015                                                 */
-/* Last Modified: May.27/2015                                                 */
-/* Version:       1.1                                                         */
+/* Last Modified: May.28/2015                                                 */
+/* Version:       1.2                                                         */
 /* Copyright (c), 2015 CSoftZ                                                 */
 /*----------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------
@@ -18,14 +18,14 @@ import java.util.List;
 
 import com.csoftz.s4n.robobum.common.LoadTextLine;
 import com.csoftz.s4n.robobum.common.ParseThreatLine;
-import com.csoftz.s4n.robobum.domain.FieldTheatLocation;
+import com.csoftz.s4n.robobum.domain.FieldThreatLocation;
 
 /**
  * Main entry location for app.
  * 
  * @since 1.8(JDK), May.27/2015
  * @author Carlos Adolfo Ortiz Quirós (COQ)
- * @version 1.1, May.27/2015
+ * @version 1.2, May.28/2015
  */
 public class RobotBumApp {
 	/**
@@ -50,7 +50,7 @@ public class RobotBumApp {
 		LoadTextLine ltl = new LoadTextLine();
 		List<String> mvtLines = ltl.readAll(args[0]);
 		List<String> threatLines = ltl.readAll(args[1]);
-		List<FieldTheatLocation> threatLocs = new ArrayList<FieldTheatLocation>();
+		List<FieldThreatLocation> threatLocs = new ArrayList<FieldThreatLocation>();
 		ParseThreatLine parseThreat = new ParseThreatLine();
 		threatLines.forEach((line) -> threatLocs.add(parseThreat
 				.parseLine(line)));

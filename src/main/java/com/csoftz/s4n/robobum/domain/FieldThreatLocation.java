@@ -3,8 +3,8 @@
 /* Description:   Domain object to hold field threat locations                */
 /* Author:        Carlos Adolfo Ortiz Quirós (COQ)                            */
 /* Date:          May.27/2015                                                 */
-/* Last Modified: May.27/2015                                                 */
-/* Version:       1.1                                                         */
+/* Last Modified: May.28/2015                                                 */
+/* Version:       1.2                                                         */
 /* Copyright (c), 2015 CSoftZ                                                 */
 /*----------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------
@@ -20,9 +20,9 @@ import java.io.Serializable;
  * 
  * @since 1.8(JDK), May.27/2015
  * @author Carlos Adolfo Ortiz Quirós (COQ)
- * @version 1.1, May.27/2015
+ * @version 1.2, May.28/2015
  */
-public class FieldTheatLocation extends AbstractCommonDomain implements
+public class FieldThreatLocation extends AbstractCommonDomain implements
 		Serializable {
 
 	/**
@@ -36,7 +36,7 @@ public class FieldTheatLocation extends AbstractCommonDomain implements
 	/**
 	 * Default Constructor
 	 */
-	public FieldTheatLocation() {
+	public FieldThreatLocation() {
 		this.clear();
 	}
 
@@ -62,7 +62,7 @@ public class FieldTheatLocation extends AbstractCommonDomain implements
 	 * @param kind
 	 *            There exists a threat signed
 	 */
-	public FieldTheatLocation(int x, int y, char kind) {
+	public FieldThreatLocation(int x, int y, char kind) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -135,10 +135,10 @@ public class FieldTheatLocation extends AbstractCommonDomain implements
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof FieldTheatLocation)) {
+		if (!(obj instanceof FieldThreatLocation)) {
 			return false;
 		}
-		FieldTheatLocation other = (FieldTheatLocation) obj;
+		FieldThreatLocation other = (FieldThreatLocation) obj;
 		if (kind != other.kind) {
 			return false;
 		}

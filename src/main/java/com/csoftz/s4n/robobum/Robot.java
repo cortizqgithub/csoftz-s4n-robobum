@@ -3,8 +3,8 @@
 /* Description:   Class to define what a robot is exploring                   */
 /* Author:        Carlos Adolfo Ortiz Quirós (COQ)                            */
 /* Date:          May.27/2015                                                 */
-/* Last Modified: May.27/2015                                                 */
-/* Version:       1.1                                                         */
+/* Last Modified: May.28/2015                                                 */
+/* Version:       1.2                                                         */
 /* Copyright (c), 2015 CSoftZ                                                 */
 /*----------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.csoftz.s4n.robobum.consts.GlobalConstants;
-import com.csoftz.s4n.robobum.domain.FieldTheatLocation;
+import com.csoftz.s4n.robobum.domain.FieldThreatLocation;
 import com.csoftz.s4n.robobum.domain.RobotPosition;
 
 /**
@@ -25,7 +25,7 @@ import com.csoftz.s4n.robobum.domain.RobotPosition;
  * 
  * @since 1.8(JDK), May.27/2015
  * @author Carlos Adolfo Ortiz Quirós (COQ)
- * @version 1.1, May.27/2015
+ * @version 1.2, May.28/2015
  */
 public class Robot {
 	private String name;
@@ -33,7 +33,7 @@ public class Robot {
 	private String initialPosition;
 	private int maxXAxis;
 	private int maxYAxis;
-	private List<FieldTheatLocation> threatLocs;
+	private List<FieldThreatLocation> threatLocs;
 	private List<String> traceList = new ArrayList<String>();
 	private List<String> resultList = new ArrayList<String>();
 	private List<RobotPosition> robotPosList = new ArrayList<RobotPosition>();
@@ -45,7 +45,7 @@ public class Robot {
 	 *            A list of field locations.
 	 * @param mvts
 	 */
-	public Robot(List<FieldTheatLocation> threatLocs, String name,
+	public Robot(List<FieldThreatLocation> threatLocs, String name,
 			String initialPosition, String commands, int maxXAxis, int maxYAxis) {
 		this.threatLocs = threatLocs;
 		this.name = name;
@@ -71,6 +71,7 @@ public class Robot {
 		traceList.add("Exploring grid for bomb presence");
 		traceList.add("Robot initial position " + "(" + rpos.getX() + ","
 				+ rpos.getY() + "," + rpos.getCardinalPos() + ")");
+		traceList.add("Robot Commands=[" + commands + "]");
 		for (int i = 0; i < commands.length(); i++) {
 			locateBombAt(rpos);
 			char ch = commands.charAt(i);
@@ -85,27 +86,62 @@ public class Robot {
 				break;
 			case GlobalConstants.ROBOT_COMMAND_MOVE_FORWARD:
 				rpos = moveForward(rpos);
+				currXPos = rpos.getX();
+				currYPos = rpos.getY();
+				currCardinalPos = rpos.getCardinalPos();
 				break;
 			default:
 				break;
 			}
-			robotPosList.add(rpos);
-			traceList.add("Robot position " + "(" + rpos.getX() + ","
+			traceList.add("Robot position THIS" + "(" + rpos.getX() + ","
 					+ rpos.getY() + "," + rpos.getCardinalPos() + ")");
+			robotPosList.add(rpos);
 		}
 		traceList.add("Finished exploration");
 	}
 
 	/**
 	 * Depending on the given position, it moves one location in the cardinal
-	 * direction. If robot is to move past its border, then 
+	 * direction.
 	 * 
 	 * @param rpos
 	 *            new position.
 	 */
 	private RobotPosition moveForward(RobotPosition rpos) {
-		RobotPosition newpos = new RobotPosition(rpos.getX(), rpos.getY(), rpos.getCardinalPos());
-		
+		RobotPosition newpos = new RobotPosition(rpos.getX(), rpos.getY(),
+				rpos.getCardinalPos());
+
+		switch (rpos.getCardinalPos()) {
+		case GlobalConstants.NORTH_POS:
+			int y = rpos.getY() + 1;
+			if (y > maxYAxis) {
+				y = maxYAxis;
+			}
+			rpos.setY(y);
+			break;
+		case GlobalConstants.SOUTH_POS:
+			y = rpos.getY() + 1;
+			if (y < 0) {
+				y = 0;
+			}
+			rpos.setY(y);
+		case GlobalConstants.EAST_POS:
+			int x = rpos.getX() + 1;
+			if (x > maxXAxis) {
+				x = maxXAxis;
+			}
+			rpos.setX(x);
+			break;
+		case GlobalConstants.WEST_POS:
+			x = rpos.getX() - 1;
+			if (x < 0) {
+				x = 0;
+			}
+			rpos.setX(x);
+			break;
+		default:
+			break;
+		}
 		return newpos;
 	}
 
@@ -113,10 +149,29 @@ public class Robot {
 	 * Given current position examines if there is a bomb there.
 	 * 
 	 * @param rpos
+	 *            Which location to examine.
 	 */
 	private void locateBombAt(RobotPosition rpos) {
-		// TODO Auto-generated method stub
-
+		traceList.add("Locating bomb using coordinates (" + rpos.getX() + ","
+				+ rpos.getY() + ")");
+		boolean found = false;
+		char kind = ' ';
+		for (FieldThreatLocation ftl : threatLocs) {
+			if (ftl.getX() == rpos.getX() && ftl.getY() == rpos.getY()) {
+				kind = ftl.getKind();
+				found = true;
+				break;
+			}
+		}
+		if (found) {
+			if (kind == GlobalConstants.THREAT_BOMB) {
+				resultList.add(rpos.getX() + " " + rpos.getY() + " "
+						+ rpos.getCardinalPos());
+				resultList.add("Threat detected");
+				traceList.add("Threat detected at (" + rpos.getX() + ","
+						+ rpos.getY() + ")");
+			}
+		}
 	}
 
 	/**

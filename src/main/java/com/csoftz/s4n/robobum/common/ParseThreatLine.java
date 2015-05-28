@@ -4,8 +4,8 @@
 /*                ParseThreatLine Object.                                     */
 /* Author:        Carlos Adolfo Ortiz Quirós (COQ)                            */
 /* Date:          May.27/2015                                                 */
-/* Last Modified: May.27/2015                                                 */
-/* Version:       1.1                                                         */
+/* Last Modified: May.28/2015                                                 */
+/* Version:       1.2                                                         */
 /* Copyright (c), 2015 CSoftZ                                                 */
 /*----------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------
@@ -15,14 +15,14 @@
 package com.csoftz.s4n.robobum.common;
 
 import com.csoftz.s4n.robobum.consts.GlobalConstants;
-import com.csoftz.s4n.robobum.domain.FieldTheatLocation;
+import com.csoftz.s4n.robobum.domain.FieldThreatLocation;
 
 /**
  * Helper class to only parse threat lines and map to ParseThreatLine Object.
  * 
  * @since 1.8(JDK), May.27/2015
  * @author Carlos Adolfo Ortiz Quirós (COQ)
- * @version 1.1, May.27/2015
+ * @version 1.2, May.28/2015
  */
 public class ParseThreatLine {
 	/**
@@ -32,8 +32,8 @@ public class ParseThreatLine {
 	 *            Input to scan
 	 * @return An object representing the coordinates and signal found.
 	 */
-	public FieldTheatLocation parseLine(String line) {
-		FieldTheatLocation data = new FieldTheatLocation();
+	public FieldThreatLocation parseLine(String line) {
+		FieldThreatLocation data = new FieldThreatLocation();
 		boolean start = false;
 		boolean getKind = false;
 		String tempStr = "";
